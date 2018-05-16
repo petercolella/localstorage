@@ -25,7 +25,7 @@
       <br>
       <input type="button" name="clear" value="Clear List">
       <input type="button" name="check-all" value="Check All">
-      <input type="button" value="Uncheck All">
+      <input type="button" name="uncheck-all" value="Uncheck All">
     </form>
   </div>
 
@@ -35,6 +35,7 @@
   const items = JSON.parse(localStorage.getItem('items')) || [];
   const clear = document.querySelector('[name=clear]');
   const checkAll = document.querySelector('[name=check-all]');
+  const uncheckAll = document.querySelector('[name=uncheck-all');
 
   function addItem(e) {
     e.preventDefault();
@@ -83,13 +84,21 @@
     });
     localStorage.setItem('items', JSON.stringify(items));
     populateList(items, itemsList);
-    console.log(items);
+  }
+
+  function uncheckAllBoxes() {
+    items.forEach(element => {
+      element.done = false;
+    });
+    localStorage.setItem('items', JSON.stringify(items));
+    populateList(items, itemsList);
   }
 
   addItems.addEventListener('submit', addItem);
   itemsList.addEventListener('click', toggleDone);
   clear.addEventListener('click', clearList);
   checkAll.addEventListener('click', checkAllBoxes);
+  uncheckAll.addEventListener('click', uncheckAllBoxes);
 
   populateList(items, itemsList);
 </script>
